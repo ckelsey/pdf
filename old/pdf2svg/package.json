@@ -1,0 +1,29 @@
+{
+  "name": "pdf",
+  "version": "1.0.0",
+  "description": "Generates PDF files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckelsey/pdf.git"
+  },
+  "keywords": [
+    "pdf"
+  ],
+  "author": "Chris Kelsey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckelsey/pdf/issues"
+  },
+  "homepage": "https://github.com/ckelsey/pdf#readme",
+  "dependencies": {
+    "hummus": "^1.0.104",
+    "inkscape": "^2.0.0",
+    "pdf-lib": "^0.6.2",
+    "pdfjs-dist": "^2.0.943",
+    "pdftohtmljs": "^0.5.2"
+  }
+}

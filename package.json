@@ -1,27 +1,23 @@
 {
-  "name": "pdf",
-  "version": "1.0.0",
-  "description": "Generates PDF files",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ckelsey/pdf.git"
-  },
-  "keywords": [
-    "pdf"
-  ],
-  "author": "Chris Kelsey",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ckelsey/pdf/issues"
-  },
-  "homepage": "https://github.com/ckelsey/pdf#readme",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "pdfkit": "^0.9.1",
-    "svg-to-pdfkit": "^0.1.7"
-  }
+    "dependencies": {
+        "pdfjs-dist": "^2.1.266"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.26.7",
+        "gulp": "^4.0.2",
+        "webpack": "^4.36.1",
+        "webpack-cli": "^3.3.6",
+        "@babel/core": "^7.4.5",
+        "@babel/plugin-proposal-class-properties": "^7.4.4",
+        "@babel/preset-env": "^7.4.5",
+        "babel-loader": "^8.0.6",
+        "css-loader": "^2.1.1",
+        "file-loader": "^3.0.1",
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "^3.2.0",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "webpack-dev-server": "^3.5.0"
+    }
 }

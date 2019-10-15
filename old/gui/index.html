@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            html {
+                height: 100%;
+            }
+
+            body {
+                margin: 0px;
+                position: absolute;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                font-size: 1rem;
+                font-family: sans-serif;
+                line-height: 1.5rem;
+                background: #222b33;
+                color: #8ba6bd;
+            }
+
+            body * {
+                box-sizing: border-box;
+            }
+
+            label {
+                display: block;
+                margin: 1rem 0rem 0.25rem 0rem;
+            }
+
+            input,
+            button {
+                opacity: 0.75;
+                display: block;
+                margin: 0rem 0rem 2rem 0rem;
+                padding: 0.5rem 1rem;
+                background: rgba(139, 166, 189, 0.125);
+                font: inherit;
+                color: rgba(193, 226, 255, 0.5);
+                border: none;
+                border-radius: 2px;
+                outline: none !important;
+                box-shadow: inset 0px 0px 0px 1px rgba(139, 166, 189, 0.25);
+                backface-visibility: hidden;
+                transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            }
+
+            input:focus,
+            button:hover {
+                opacity: 1;
+                background: rgba(139, 166, 189, 0.25);
+                box-shadow: inset 0px 0px 0px 1px rgba(139, 166, 189, 0.33);
+                color: rgba(193, 226, 255, 0.75);
+            }
+
+            input {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            button {
+                padding: 0.5rem 1.5rem;
+                cursor: pointer;
+            }
+
+            input:active,
+            button:active {
+                transform: scale(0.95);
+            }
+
+            #container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            #document {
+                flex-grow: 1;
+                padding: 1rem;
+            }
+
+            #sidebar {
+                width: 280px;
+                height: 100%;
+                padding: 1rem;
+                background: #1e262d;
+            }
+
+            .flex-right {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="document_pages"></div>
+            <div id="document"></div>
+            <div id="sidebar">
+                <div class="form-section">
+                    <div>
+                        <label>New PDF URL</label>
+                        <input run="" type="text" id="newPdfUrlInput"
+                            value="https://ckcuploads.s3.amazonaws.com/Client_Authorization_Agreement-S0569002004.pdf">
+                    </div>
+                    <div>
+                        <label>Open project URL</label>
+                        <input type="text" id="existingProjectUrlInput">
+                    </div>
+                    <div class="flex-right">
+                        <button id="goButton">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var pdf2svg = 'http://localhost:8124'
+            var documentPages = document.getElementById('document_pages')
+            var newPdfUrlInput = document.getElementById('newPdfUrlInput')
+            var existingProjectUrlInput = document.getElementById('existingProjectUrlInput')
+            var goButton = document.getElementById('goButton')
+
+            function getRemote(url) {
+                return new Promise(function (resolve, reject) {
+                    if (url.substring(0, 4) !== 'http') {
+                        return reject('invalid url')
+                    }
+
+                    var xhr = new XMLHttpRequest()
+                    xhr.open('GET', url)
+                    xhr.onload = function () {
+                        var response = xhr.responseText
+
+                        try { response = JSON.parse(response) } catch (error) { }
+
+                        return resolve(response)
+                    }
+                    xhr.onerror = function () {
+                        return reject(xhr.error)
+                    }
+                    xhr.send()
+                })
+            }
+
+            function renderSvg(data){
+                // console.log(data.pageText)
+                // var text = data.pageText
+                // var svg = new DOMParser().parseFromString(data.svg, 'application/xml')
+
+                // documentPages.appendChild(
+                //     documentPages.ownerDocument.importNode(svg.documentElement, true)
+                // )
+
+                // console.log(data)
+            }
+
+            goButton.addEventListener('click', function () {
+                var url = pdf2svg + '?url=' + newPdfUrlInput.value
+
+                getRemote(url)
+                    .then(function (result) {
+                        // renderSvg(result[0])
+                        console.log(result)
+
+
+
+
+                        // console.log('result', result)
+                        // // var svgs = JSON.parse(result)
+                        // var html = ''
+
+                        // svgs.forEach(svg => {
+                        //     html = html + '<div class="page-thumb">' + svg + '</div>'
+                        // })
+
+                        // var div = document.createElement('div')
+
+                        // div.innerHTML = result.split('<body>').join('').split('</body>').join('')
+                        // div.innerHTML = result
+
+                        // Array.from(div.firstChild.firstChild).forEach(function(el){
+                        //     documentPages.appendChild(div.firstChild.firstChild)
+                        // })
+                        // documentPages.appendChild(div.firstChild)
+                    })
+                    .catch(function (error) {
+                        console.log('error', error)
+                    })
+            })
+        </script>
+    </body>
+
+</html>
